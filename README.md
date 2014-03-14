@@ -15,3 +15,6 @@
 - indicngram.py: example usage of indicngramlib
 - doc2txt: script to convert doc to txt
 
+# Sources
+- [Code Snippets](http://www.csc.villanova.edu/~matuszek/spring2012/snippets.html)
+
