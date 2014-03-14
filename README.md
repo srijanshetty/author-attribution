@@ -13,4 +13,5 @@
 - BOWArray.py: create BOW representation of a given corpus folder
 - cngram: C++ library for Ngram
 - indicngram.py: example usage of indicngramlib
+- doc2txt: script to convert doc to txt
 
