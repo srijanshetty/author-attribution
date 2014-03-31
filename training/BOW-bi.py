@@ -44,14 +44,15 @@ for directory in directories:
 print "-----------------------------------------------------------"
 
 # First we need to get the frequent collocations in the entire corpus
+print "Computing the frequent bigrams of the corpus"
 bigram_measures = nltk.collocations.BigramAssocMeasures()
 corpus = open('corpus.txt').read()
 finder = BigramCollocationFinder.from_words(corpus.split())
-finder.nbest(bigram_measures.raw_freq, 2000)
-scored = finder.score_ngrams(bigram_measures.raw_freq)
-scoredBigram = map(lambda (x,y): x, scored)
+scoredBigram = finder.nbest(bigram_measures.raw_freq, 2000)
+# scored = finder.score_ngrams(bigram_measures.raw_freq)
+# scoredBigram = map(lambda (x,y): x, scored)
 
-print "Using", len(scored), "frequent items"
+print "Using", len(scoredBigram), "frequent items"
 
 # Function to create a BOW for one document.  For each of
 # our unique words, we have a feature which is the count for that word
