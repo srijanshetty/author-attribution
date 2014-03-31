@@ -17,7 +17,7 @@ all_terms = []
 texts = []
 
 # The directory to be parsed
-path = "uni-corpus/*.split"
+path = "corpus/*.split"
 directories = glob.glob(path)
 print "Tokenizing documents in the directories:", directories, "\n"
 
@@ -75,6 +75,6 @@ print "Vectors created."
 print "First 10 words are", all_terms[:10]
 print "First 10 counts for first document are", vectors[0][0:10]
 
-clusterer = KMeansClusterer(5, euclidean_distance)
-clusters = clusterer.cluster(vectors, assign_clusters=True, trace=False)
-means = clusterer.means()
+# clusterer = KMeansClusterer(5, euclidean_distance)
+# clusters = clusterer.cluster(vectors, assign_clusters=True, trace=False)
+# means = clusterer.means()

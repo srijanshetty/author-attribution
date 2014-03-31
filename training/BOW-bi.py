@@ -19,7 +19,7 @@ texts = []
 lentexts = []
 
 # The directory to be parsed
-path = "uni-corpus/*.split"
+path = "corpus/*.split"
 directories = glob.glob(path)
 print "Tokenizing documents in the directories:", directories, "\n"
 
