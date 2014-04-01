@@ -6,6 +6,8 @@ from nltk.cluster import euclidean_distance
 from nltk.cluster import cosine_distance
 from nltk.cluster import KMeansClusterer
 
-clusterer = KMeansClusterer(5, cosine_distance)
+numClusters = 4
+print "KMeans Clustering with %d means and using cosine distance" %numClusters
+clusterer = KMeansClusterer(numClusters, cosine_distance)
 clusters = clusterer.cluster(vectors, assign_clusters=True, trace=False)
 means = clusterer.means()

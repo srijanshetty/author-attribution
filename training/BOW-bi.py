@@ -4,12 +4,6 @@ import random
 import re, pprint, os
 import numpy
 import glob
-from nltk import cluster
-from nltk.cluster import util
-from nltk.cluster import api
-from nltk.cluster import euclidean_distance
-from nltk.cluster import cosine_distance
-from nltk.cluster import KMeansClusterer
 from nltk.collocations import *
 
 # Empty list to hold all of the terms across documents, and another
@@ -49,8 +43,6 @@ bigram_measures = nltk.collocations.BigramAssocMeasures()
 corpus = open('corpus.txt').read()
 finder = BigramCollocationFinder.from_words(corpus.split())
 scoredBigram = finder.nbest(bigram_measures.raw_freq, 2000)
-# scored = finder.score_ngrams(bigram_measures.raw_freq)
-# scoredBigram = map(lambda (x,y): x, scored)
 
 print "Using", len(scoredBigram), "frequent items"
 
@@ -63,12 +55,5 @@ def BOWf(document):
     return word_counts
 
 ### And here we actually call the function and create our list of vectors.
+print "Creating Numpy array vectors"
 vectors = [numpy.array(BOWf(f)) for f in texts]
-print "Vectors created."
-print "First 10 words are", all_terms[:10]
-print "First 10 counts for first document are", vectors[0][0:10]
-#
-# clusterer = KMeansClusterer(5, euclidean_distance)
-# clusters = clusterer.cluster(vectors, assign_clusters=True, trace=False)
-# means = clusterer.means()
-
