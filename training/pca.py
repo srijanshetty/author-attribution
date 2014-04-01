@@ -1,4 +1,5 @@
+import numpy as np
 from matplotlib.mlab import PCA
-matrixData = numpy.array(vectors)
+matrixData = np.array(vectors)
 pcaVectors = PCA(matrixData)
 

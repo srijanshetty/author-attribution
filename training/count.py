@@ -33,18 +33,21 @@ for i in range(totalSnippets):
                 break
 
 # computing the ratios
-for key in measurements.keys():
-    measurements[key]["countRatio"] = [0 for x in range(numClusters)]
-    for i in range(numClusters):
-        measurements[key]["countRatio"][i] = measurements[key]["count"][i]/measurements[key]["number"]
+def computeRatio():
+    for key in measurements.keys():
+        measurements[key]["countRatio"] = [0 for x in range(numClusters)]
+        for i in range(numClusters):
+            measurements[key]["countRatio"][i] = measurements[key]["count"][i]/measurements[key]["number"]
 
 # find the cluster for each author
-for key in measurements.keys():
-    l = list(measurements[key]["count"])
-    l.sort()
-    measurements[key]["cluster"] = measurements[key]["count"].index(l.pop())
+def computeCluster():
+    for key in measurements.keys():
+        l = list(measurements[key]["count"])
+        l.sort()
+        measurements[key]["cluster"] = measurements[key]["count"].index(l.pop())
 
 # compute precision and recall
+computeCluster()
 sumCluster = []
 for i in range(numClusters):
     tempSum = 0
@@ -54,5 +57,5 @@ for i in range(numClusters):
 
 for key in measurements.keys():
     cluster = measurements[key]["cluster"]
-    measurements[key]["recall"] = measurements[key]["count"][cluster]/measurements[key]["number"]
-    measurements[key]["precision"] = measurements[key]["count"][cluster]/sumCluster[cluster]
+    measurements[key]["recall"] = measurements[key]["count"][cluster]/ float(measurements[key]["number"])
+    measurements[key]["precision"] = measurements[key]["count"][cluster]/float(sumCluster[cluster])
