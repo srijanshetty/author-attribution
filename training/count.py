@@ -7,6 +7,9 @@
 
 # This is not a very generic file and only works for the given dataset
 
+# Needs: clusters
+
+
 # compute precision and recall
 measurements = {
         "sarat": { "cluster": 0, "recall": 0, "precision": 0, "number": 702, "count" : [0 for x in range(numClusters)]},
