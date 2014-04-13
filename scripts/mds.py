@@ -3,26 +3,8 @@
 import math
 import random
 import copy
- 
-"""
 import pylab as p
- 
-def testSimple():
-    distanceMatrix = list( [[0,1,1,1],
-                             [4,0,1,1],
-                             [1,9,0,1],
-                             [3,1,1,0]] )
-    points = MDS(distanceMatrix).points()
-    plot(points)
-    exit()
- 
-def plot(points):
-    x = [point[0] for point in points]
-    y = [point[1] for point in points]
- 
-    p.plot(x,y, 'ro')
-    p.show()
-"""    
+import numpy
  
 class MDS():
     """Multi-dimensional scaling:
@@ -122,7 +104,20 @@ output: list with 2D-points: [[x1,y1],[x2,y2],...,[xn,yn]]
         sortedl = sorted(l, key=self.score)
         return sortedl[0:5]
  
-if __name__ == "__main__":
-    #testSimple()
-    pass            
+def plotGraph(distanceMatrix):
+    points = MDS(distanceMatrix).points()
+    plot(points)
  
+def plot(points):
+    x = [point[0] for point in points]
+    y = [point[1] for point in points]
+ 
+    p.plot(x,y, 'ro')
+    p.show()
+ 
+from scipy.spatial.distance import pdist, squareform, euclidean
+
+data = numpy.array(vectors)
+distances = pdist(data, euclidean)
+data2D = squareform(distances)
+plotGraph(data2D)

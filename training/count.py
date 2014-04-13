@@ -1,3 +1,12 @@
+# This file counts the various counts for different authors, but needs to have a 
+# clusters vector which stores the cluster corresponding to the vectors array
+
+# Note, here the arrangement of authors is according to the way glob.glob globs the 
+# files while processing them to convert them into BOW
+# sarat > vibhuti > prem > dharamvir
+
+# This is not a very generic file and only works for the given dataset
+
 # compute precision and recall
 measurements = {
         "sarat": { "cluster": 0, "recall": 0, "precision": 0, "number": 702, "count" : [0 for x in range(numClusters)]},
