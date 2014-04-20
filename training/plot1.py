@@ -71,6 +71,7 @@ ax.scatter(pltData[0], pltData[1], pltData[2], c='y') # make a scatter plot of b
 
 pltData = [x[4],y[4],z[4]] 
 ax.scatter(pltData[0], pltData[1], pltData[2], c='#ff1493') # make a scatter plot of blue dots from the data
+# ax.scatter(pltData[0], pltData[1], pltData[2], c='k') # make a scatter plot of blue dots from the data
  
 # make simple, bare axis lines through space:
 xAxisLine = ((min(pltData[0]), max(pltData[0])), (0, 0), (0,0)) # 2 points make the x-axis line at the data extrema along x-axis 
@@ -81,8 +82,8 @@ zAxisLine = ((0, 0), (0,0), (min(pltData[2]), max(pltData[2]))) # 2 points make 
 ax.plot(zAxisLine[0], zAxisLine[1], zAxisLine[2], 'k') # make a red line for the z-axis.
  
 # label the axes 
-ax.set_xlabel("x-axis label") 
-ax.set_ylabel("y-axis label")
-ax.set_zlabel("y-axis label")
-ax.set_title("The title of the plot")
+ax.set_xlabel("First Principal Component") 
+ax.set_ylabel("Second Principal Component")
+ax.set_zlabel("Third Principal Component")
+ax.set_title("Combined Ngram KMeans clustering")
 plt.show() # show the plot
