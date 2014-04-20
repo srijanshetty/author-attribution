@@ -1,7 +1,9 @@
-# Simple pca routine, needs:
-
-# X which is a list of lists storing the vectors
-# y which is the corresponding value of the vectors
+#################################################
+# SVM routine                                   #
+#                                               #
+# Requirements: data-matrix(X), labels(y)       #
+# Usage       : %loadpy pca.py                  #
+#################################################
 
 from sklearn import svm
 clf = svm.SVC()

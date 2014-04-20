@@ -1,7 +1,5 @@
 from __future__ import division
 import nltk
-import random
-import re, pprint, os
 import numpy
 import glob
 from nltk.collocations import *

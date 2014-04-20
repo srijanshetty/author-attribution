@@ -1,12 +1,15 @@
-# This files need a vector called vectors which stores the 
-# bigram/trigram/unigram BOW
-# Apart from this, it is straightforward
+######################################
+# Cluster a BOW vector in 4 clusters #
+#                                    #
+# Requirements: vectors array        #
+# Usage       : %loadpy cluster.py   #
+######################################
 
 import nltk
 from nltk import cluster
 from nltk.cluster import util
 from nltk.cluster import api
-from nltk.cluster import euclidean_distance
+# from nltk.cluster import euclidean_distance
 from nltk.cluster import cosine_distance
 from nltk.cluster import KMeansClusterer
 
