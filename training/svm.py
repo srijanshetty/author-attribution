@@ -2,7 +2,7 @@
 # SVM routine                                   #
 #                                               #
 # Requirements: data-matrix(X), labels(y)       #
-# Usage       : %loadpy pca.py                  #
+# Usage       : %loadpy svm.py                  #
 #################################################
 
 from sklearn import svm

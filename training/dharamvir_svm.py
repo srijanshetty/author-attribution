@@ -1,15 +1,18 @@
-# Analysis of the SVM that was performed on Dharamvir
-
-# Wrong ones 0:500 1000:1500, i.e., 1000 incorrect samples
-# Right ones are 1839:2039, i.e, 200 correct samples
-
-# The steps are
+##########################################################
+# Analysis of the SVM that was performed on Dharamvir    #
+#                                                        #
+#                                                        #
+# Requires: vectors                                      #
+# Output  : count                                        #
+# Usage   : %loadpy dharamvir_svm.py                     #
+##########################################################
 
 # Create the data
-X = vectors[:500] # 500 false
-X.extend(vectors[1000:1500]) # 500 false 
-X.extend(vectors[1839:2039]) # 200 true 
+X = vectors[:500]                     # 500 false
+X.extend(vectors[1000:1500])          # 500 false 
+X.extend(vectors[1839:2039])          # 200 true 
 
+# Label the data
 y = []
 for i in range(1200):
     if i < 1000:
@@ -17,7 +20,7 @@ for i in range(1200):
     else:
         y.append(1)
 
-# Apply SVM
+# Train the SVM
 from sklearn import svm
 clf = svm.SVC()
 clf.fit(X, y)

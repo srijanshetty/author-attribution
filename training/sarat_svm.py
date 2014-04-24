@@ -1,16 +1,18 @@
-# Analysis of the SVM that was performed on sarat
-
-# For sarat we take 0 to 499, i.e, 500 correct samples
-# Then 702 to 1352, i.e., 650 more incorrect
-# Then 1802 to 1952, i.e., 150 more incorrect
-
-# The steps are
+##########################################################
+# Analysis of the SVM that was performed on Sarat        #
+#                                                        #
+#                                                        #
+# Requires: vectors                                      #
+# Output  : count                                        #
+# Usage   : %loadpy sarat_svm.py                         #
+##########################################################
 
 # Create the data
-X = vectors[:500]
-X.extend(vectors[702:1352])
-X.extend(vectors[1802:1952])
+X = vectors[:500]                     # 500 correct
+X.extend(vectors[702:1352])           # 650 incorrect
+X.extend(vectors[1802:1952])          # 150 incorrect
 
+# Create labels
 y = []
 for i in range(1300):
     if i < 500:
@@ -18,7 +20,7 @@ for i in range(1300):
     else:
         y.append(0)
 
-# Apply SVm
+# Train SVM
 from sklearn import svm
 clf = svm.SVC()
 clf.fit(X, y)

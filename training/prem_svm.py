@@ -1,16 +1,18 @@
-# Analysis of the SVM that was performed on Prem
-
-# For vibhuti we take 702 to 1002, i.e, 300 correct samples
-# Wrong ones 0:500 1202:1702, i.e., 1000 incorrect samples
-# so we have 1500 data points
-
-# The steps are
+##########################################################
+# Analysis of the SVM that was performed on Prem         #
+#                                                        #
+#                                                        #
+# Requires: vectors                                      #
+# Output  : count                                        #
+# Usage   : %loadpy prem_svm.py                          #
+##########################################################
 
 # Create the data
 X = vectors[:500] # 500 false
 X.extend(vectors[1181:1581]) # 400 true
 X.extend(vectors[1852:2052]) # 200 false
 
+# Label the data
 y = []
 for i in range(1100):
     if i < 500:
@@ -20,7 +22,7 @@ for i in range(1100):
     else:
         y.append(0)
 
-# Apply SVM
+# Train SVM
 from sklearn import svm
 clf = svm.SVC()
 clf.fit(X, y)

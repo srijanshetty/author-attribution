@@ -1,17 +1,19 @@
-# Analysis of the SVM that was performed on vibhuti
-
-# For vibhuti we take 702 to 1002, i.e, 300 correct samples
-# Wrong ones 0:500 1202:1702, i.e., 900 incorrect samples
-# so we have 1500 data points
-
-# The steps are
+##########################################################
+# Analysis of the SVM that was performed on vibhuti      #
+#                                                        #
+#                                                        #
+# Requires: vectors                                      #
+# Output  : count                                        #
+# Usage   : %loadpy vibhuti_svm.py                       #
+##########################################################
 
 # Create the data
-X = vectors[702:1002]
-X.extend(vectors[1202:1502])
-X.extend(vectors[1802:1902])
-X.extend(vectors[:500])
+X = vectors[702:1002]              # 300 correct
+X.extend(vectors[1202:1502])       # 300 incoorect
+X.extend(vectors[1802:1902])       # 100 incorrect
+X.extend(vectors[:500])            # 500 incorrect
 
+# Label the data
 y = []
 for i in range(1200):
     if i < 300:
@@ -19,7 +21,7 @@ for i in range(1200):
     else:
         y.append(0)
 
-# Apply SVM
+# Train the SVM
 from sklearn import svm
 clf = svm.SVC()
 clf.fit(X, y)
