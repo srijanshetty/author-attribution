@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Author Attribution</title>
+    <meta charset="utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1> Classification of Hindi authors according to author writing style </h1>
+        <h4> Srijan R. Shetty and Dhruv Anand </h4>
+    </header>
+
+    <section class="main">
+        <h1 id="abstract">Abstract</h1>
+        <p>This project is an attempt to study well established methods of author attribution in the context of Hindi Literature. While sophisticated approaches to author attribution have been tested in English, the terrain of Indian languages remains untouched. This is partly because of the morphologically rich structure of the languages and partly because of the absence of an authoritative dataset in Hindi. Our project explorers supervised and unsupervised methods of author attribution in Hindi Literature. The differences in accuracy in results can be related to variance in effectiveness of the common stylistic features in indicating identity of the author. These could vary uniformly from Hindi to English Texts and this project tries to find such differences.</p>
+
+        <h1 id="corpus">Corpus</h1>
+        <p>One of the most vital component of our project was a high quality dataset preferably in Unicode. Unfortunately, none of the datasets that we came across met our requirements, hence we decide to build a corpus of Hindi Literature by ourselves.</p>
+        <p>The data source of our corpus if www.hindisamay.com, which allows all of its content to be downloaded in doc format. For the data to be useful, we had to convert it into text format using LibreOffice in headless mode. The created corpus consists of novels from the following authors: Rabindranath Tagore, Vibhuti Narayan, Premchand, Sarat Chandra Chattopadhyay and Dhamarvir Bharati. (Note: due to the lack of hindi novels by Rabindranath Tagore, we had to resort to using short stories written by him.)</p>
+
+        <h1 id="methodology">Methodology</h1>
+
+        <h2 id="preprocessing">Preprocessing</h2>
+        <p>The documents were normalized by removing all Hindi punctuations. To vectorize the authors, we concatenated the work of each author and divided them into snippets of 500 words each.</p>
+
+        <h2 id="feature-vector-formation">Feature Vector Formation</h2>
+
+        <h3 id="unigram" class="unnumbered">Unigram</h3>
+        <p>For Unigram analysis, the top 4500 frequent words were used to create a Bag of Words model for each vector created in the pre-processing stage.</p>
+
+        <h3 id="bigram-and-trigram-analysis" class="unnumbered">Bigram and Trigram Analysis</h3>
+        <p>For the other ngram analysis, the top 2000 frequent ngrams were used to create a Bag of Words model for each vector created in the pre-processing stage.</p>
+
+        <h3 id="multiple-discriminant-analysis" class="unnumbered">Multiple Discriminant Analysis</h3>
+        <p>For MDA, we only considered the top 1000 frequency bigrams and top 1000 frequent trigrams which were concatenated in order to create feature vectors.</p>
+
+        <h3 id="dimensionality-reduction-using-pca">Dimensionality Reduction using PCA</h3>
+        <p>The high dimensional vectors obtained from the feature vector creation stage were reduced to manageable dimensions, using Principal Component Analysis. This ensured optimum usage of time in the later stages. The following caveats are in order:</p>
+        <ul>
+            <li><p>Unigram analysis was done the raw feature vectors. This decision was undertaken because, Unigram merely served to eliminate the authors whose works were translated by multiple translators (Rabindranath Tagore in our case).</p></li>
+            <li><p>Results have been reported for the top 20 dimensions, albeit analysis was carried out for 5, 10 and 40 dimensions. It was seen that the results remained fairly static until 20 dimensions.</p></li>
+        </ul>
+
+        <h2 id="classification">Classification</h2>
+
+        <h3 id="support-vector-machine-classification">Support Vector Machine Classification</h3>
+        <p>We trained an SVM for each of the author separately using the Radial Basis Kernel Function.</p>
+
+        <h3 id="k-means-clustering">K-Means Clustering</h3>
+        <p>The dimensionally reduced feature vectors were clustered using K-Means clustering with the number of clusters set to four. The cluster containing maximum number from a particular author was assumed to be that author’s cluster.</p>
+
+        <h3 id="multivariate-discriminant-analysis">Multivariate Discriminant Analysis</h3>
+        <p>As an attempt to improve results further, two features - word bigrams and trigrams - were combined together and then clustered using K-Means clustering.</p>
+
+        <h2 id="evaluation">Evaluation</h2>
+
+        <h3 id="supervised-learning">Supervised Learning</h3>
+        <p>A test set for each author was kept (such that training:test snippets were in a 5:2 ratio). Evaluation on each one v/s all classifier was done separately and the results were tabulated. </p>
+
+        <h3 id="unsupervised-learning">Unsupervised Learning</h3>
+        <p>The cluster with the most snippets actually labelled as written by author A was assigned A. After the assignment of clusters to authors, the misclassfication was computed using the groundtruth. Using these values, various statistics for each clustering was computed.</p>
+
+        <h1 id="results">Results</h1>
+
+        <figure class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th> Author </th>
+                        <th> Precision </th>
+                        <th> Recall </th>
+                        <th>F-score</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td> Premchand </td>
+                        <td> 0.9325 </td>
+                        <td> 0.9651 </td>
+                        <td> 0.9485 </td>
+                    </tr>
+                    <tr>
+                        <td> Sarat </td>
+                        <td> 0.9643 </td>
+                        <td> 0.9356 </td>
+                        <td> 0.9497 </td>
+                    </tr>
+                    <tr>
+                        <td> Vibhuti </td>
+                        <td> 0.9933 </td>
+                        <td> 0.8268 </td>
+                        <td> 0.9024 </td>
+                    </tr>
+                    <tr>
+                        <td> Dharamvir </td>
+                        <td> 1.0 </td>
+                        <td> 0.64 </td>
+                        <td> 0.7805 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <figcaption>Statistics for MDA</figcaption>
+        </figure>
+
+        <figure class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th> Author </th>
+                        <th> Precision </th>
+                        <th> Recall </th>
+                        <th>F-score</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td> Premchand </td>
+                        <td> 0.9939 </td>
+                        <td> 0.9894 </td>
+                        <td> 0.9916 </td>
+                    </tr>
+                    <tr>
+                        <td> Sarat </td>
+                        <td> 0.9982 </td>
+                        <td> 0.9544 </td>
+                        <td> 0.9758 </td>
+                    </tr>
+                    <tr>
+                        <td> Vibhuti </td>
+                        <td> 0.8764 </td>
+                        <td> 0.9916 </td>
+                        <td> 0.9304 </td>
+                    </tr>
+                    <tr>
+                        <td> Dharamvir </td>
+                        <td> 0.9906</td>
+                        <td> 0.848 </td>
+                        <td> 0.9137 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <figcaption>Statistics for Bigrams</figcaption>
+        </figure>
+
+        <figure class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th> Author </th>
+                        <th> Precision </th>
+                        <th> Recall </th>
+                        <th>F-score</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td> Premchand </td>
+                        <td> 0.9969 </td>
+                        <td> 0.9878 </td>
+                        <td> 0.9923 </td>
+                    </tr>
+                    <tr>
+                        <td> Sarat </td>
+                        <td> 0.9935 </td>
+                        <td> 0.8732 </td>
+                        <td> 0.9295 </td>
+                    </tr>
+                    <tr>
+                        <td> Vibhuti </td>
+                        <td> 0.9464 </td>
+                        <td> 0.9958 </td>
+                        <td> 0.9705 </td>
+                    </tr>
+                    <tr>
+                        <td> Dharamvir </td>
+                        <td> 0.7151 </td>
+                        <td> 0.904 </td>
+                        <td> 0.7985 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <figcaption>Statistics for MDA</figcaption>
+        </figure>
+
+        <h1 id="clusters">Clusters</h1>
+        <figure class="image">
+            <img src="Bigram.png" alt="K-Means: Bigrams" />
+            <figcaption>K-Means: Bigrams</figcaption>
+        </figure>
+
+        <figure class=".image">
+            <img src="trigram.png" alt="K-Means: Trigrams" />
+            <figcaption>K-Means: Trigrams</figcaption>
+        </figure>
+
+        <figure class="image">
+            <img src="combined.png" alt="K-Means: MDA" />
+            <figcaption>K-Means: MDA</figcaption>
+        </figure>
+
+        <h1 id="insights">Insights</h1>
+        <ol>
+            <li><p>Since works of Rabindranath Tagore were translations, their removal from the analysis improved the results since the multiple translators made his work heterogeneous. (The fact that most of his collected works were translations is bolstered by the results Unigram Analysis.)</p></li>
+            <li><p>The corpus contained many essays by Vibhuti Narayan Rai. Ergo, his works included many domain specific content words, leading to good results.</p></li>
+            <li><p>The Corpus contained only novels for Premchand and so both recall and precision for him were high <span class="math"> &gt; </span> 70%</p></li>
+            <li><p>The increase in number of classes (authors) will gradually lead to reduction in accuracy of the results as the amount of distinction in the feature vector space will be too less for spherical clusters to be found.</p></li>
+            <li><p>The sparsity of the trigram vectors led to a lower F-score for it compared to Bigrams. This indicates that a larger dataset will result in better Precision and Recall for trigrams.</p></li>
+            <li><p>MDA did not prove to be too beneficial as the F-score for both features individually was already saturated at more than 90-95%. Thus, the application of MDA did not improve our study very substantially.</p></li>
+        </ol>
+
+        <h1 id="conclusion">Conclusion</h1>
+        <p>Our analysis has given us valuable insights on the nature of and on the viability of using standard methods on Indian Literature datasets for Authorship Attribution. Further work on Authorship Attribution in Indian Language datasets can be pursued by augmenting the dataset we have constructed and by running the methods we have used on it. Since unsupervised methods have also proven to work well in our analysis, our approach could work even if the ground truth of authorship is not known. This could greatly benefit people working on plagiarism detection and literary analysts who want to study writing style of Hindi Authors.</p>
+
+        <h1 id="resources">Resources</h1>
+        <ul>
+        <li>
+        <p>The code used in this project can be viewed at <a href="https://github.com/srijanshetty/author-attribution">GitHub</a>.</p>
+        </li>
+        </ul>
+
+        <h1 id="references">References</h1>
+        <ol>
+        <li>Computational methods in authorship attribution, <em> Koppel, Moshe and Schler, Jonathan and Argamon, Shlomo (2009)</em></li>
+        <li>Authorship attribution in the wild <em>Koppel, Moshe and Schler, Jonathan and Argamon, Shlomo (2011)</em></li>
+        <li>A survey of modern authorship attribution methods <em>Stamatatos, Efstathios (2009)</em></li>
+        <ol>
+    </section>
+</body>
+</html>
